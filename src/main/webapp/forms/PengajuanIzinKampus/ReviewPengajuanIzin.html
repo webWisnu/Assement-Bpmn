@@ -1,0 +1,76 @@
+<form action="">
+    <h3>Form Pengajuan Izin Mahasiswa Di Kampus</h3>
+
+    <div class="form-group">
+        <label>Jenis Izin</label>
+        <select cam-variable-name="category"
+                cam-variable-type="String" readonly disabled class="form-control">
+            <option value="Keperluan Pribadi">Keperluan Pribadi</option>
+            <option value="Sakit">Sakit</option>
+            <option value="Lainnya">Lainnya</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Tanggal Izin</label>
+        <p class="input-group">
+            <input type="text"
+                   cam-variable-name="date"
+                   cam-variable-type="String"
+                   class="form-control"
+                   uib-datepicker-popup="yyyy-MM-dd"
+                   is-open="dateFieldOpened"
+                   readonly disabled/>
+
+            <span class="input-group-btn">
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+        </p>
+    </div>
+    <script cam-script type="text/form-script">
+        $scope.open = function($event) {
+          $event.preventDefault();
+          $event.stopPropagation();
+          $scope.dateFieldOpened = true;
+        };
+    </script>
+
+    <div class="form-group">
+        <label>Deskripsi</label>
+        <textarea cam-variable-name="description"
+                  cam-variable-type="String" readonly disabled class="form-control"></textarea>
+    </div>
+
+    <div class="form-group" style="display: flex; flex-flow: column">
+        <label>Bukti Pendukung</label>
+        <input type="hidden"
+               cam-variable-name="evidence"
+               cam-variable-type="File"
+               cam-max-filesize="5000000" class="form-control"/>
+        <img style="width: 500px; height: 350px" src="{{ camForm.variableManager.variable('evidence').contentUrl }}" alt="Bukti Pendukung"/>
+
+        <!-- Tambahan tombol untuk download foto -->
+        <a href="{{ camForm.variableManager.variable('evidence').contentUrl }}" download="bukti-pendukung.jpg" class="btn btn-primary mt-2">
+            Download Foto
+        </a>
+    </div>
+
+    <div class="form-group">
+        <label>Apakah pengajuan izin disetujui?</label>
+        <select cam-variable-name="isApproved"
+                cam-variable-type="String" class="form-control">
+            <option value="Setuju">Setuju</option>
+            <option value="Tolak">Tolak</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Catatan</label>
+        <textarea cam-variable-name="remark"
+                  cam-variable-type="String" class="form-control"></textarea>
+    </div>
+</form>
